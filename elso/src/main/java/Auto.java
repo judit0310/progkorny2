@@ -1,6 +1,17 @@
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Auto {
+    protected static Map<String, Integer> hengerurtartalom;
+
+    static{
+        hengerurtartalom= new HashMap<>();
+        hengerurtartalom.put("1.0", 998);
+        hengerurtartalom.put("1.4", 1390);
+        hengerurtartalom.put("1.6", 1560);
+    }
+
     private String marka;
     private String model;
     private String rendszam;
