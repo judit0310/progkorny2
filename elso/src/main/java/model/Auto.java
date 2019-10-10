@@ -1,3 +1,7 @@
+package model;
+
+import model.Uzemanyag;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -84,7 +88,7 @@ public class Auto {
 
     @Override
     public String toString() {
-        return "Auto{" +
+        return "model.Auto{" +
                 "marka='" + marka + '\'' +
                 ", model='" + model + '\'' +
                 ", rendszam='" + rendszam + '\'' +

@@ -1,23 +1,21 @@
+package model;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import model.Auto;
+import model.Uzemanyag;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.mockito.configuration.IMockitoConfiguration;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.text.CollationElementIterator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
-
-import static org.junit.Assert.*;
 
 public class AutoTest {
     @Ignore
