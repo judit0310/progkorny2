@@ -1,1 +1,1 @@
-[{"marka":"Ford","model":"Focus","rendszam":"ABC-123","szin":"feher","uzemanyag":"BENZIN","gyartasi_ido":"2014-02-15"}]
+[{"marka":"Ford","model":"Focus","rendszam":"ABC-123","szin":"feher","uzemanyag":"BENZIN","gyartasi_ido":[2014,2,15]},{"marka":"Opel","model":"Astra","rendszam":"ABC-258","szin":"kék","uzemanyag":"BENZIN","gyartasi_ido":[2015,4,25]}]

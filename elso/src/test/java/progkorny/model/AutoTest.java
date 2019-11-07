@@ -1,11 +1,9 @@
-package model;
+package progkorny.model;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import model.Auto;
-import model.Uzemanyag;
 import org.junit.Ignore;
 import org.junit.Test;
 

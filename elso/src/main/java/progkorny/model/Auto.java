@@ -1,16 +1,18 @@
-package model;
+package progkorny.model;
 
-import model.Uzemanyag;
+import model.exceptions.RosszRendszam;
+import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Auto {
+    private Logger logger = Logger.getLogger(Auto.class);
     protected static Map<String, Integer> hengerurtartalom;
 
-    static{
-        hengerurtartalom= new HashMap<>();
+    static {
+        hengerurtartalom = new HashMap<>();
         hengerurtartalom.put("1.0", 998);
         hengerurtartalom.put("1.4", 1390);
         hengerurtartalom.put("1.6", 1560);
@@ -24,7 +26,7 @@ public class Auto {
     private LocalDate gyartasi_ido;
 
 
-    public Auto(){
+    public Auto() {
 
     }
 
@@ -35,6 +37,7 @@ public class Auto {
         this.szin = szin;
         this.uzemanyag = uzemanyag;
         this.gyartasi_ido = gyartasi_ido;
+        logger.info("Uj Auto hozzaadva:" + this);
     }
 
     public String getMarka() {
@@ -57,8 +60,11 @@ public class Auto {
         return rendszam;
     }
 
-    public void setRendszam(String rendszam) {
-        this.rendszam = rendszam;
+    public void setRendszam(String rendszam) throws RosszRendszam {
+        if (checkRendszam(rendszam)) {
+            this.rendszam = rendszam;
+        }else{
+        throw new RosszRendszam(rendszam);}
     }
 
     public String getSzin() {
@@ -88,13 +94,17 @@ public class Auto {
 
     @Override
     public String toString() {
-        return "model.Auto{" +
+        return "progkorny.model.Auto{" +
                 "marka='" + marka + '\'' +
-                ", model='" + model + '\'' +
+                ", progkorny.model='" + model + '\'' +
                 ", rendszam='" + rendszam + '\'' +
                 ", szin='" + szin + '\'' +
                 ", uzemanyag=" + uzemanyag +
                 ", gyartasi_ido=" + gyartasi_ido +
                 '}';
+    }
+
+    public static boolean checkRendszam(String rendszam){
+        return rendszam.matches("[A-z]{3}-\\d{3}");
     }
 }

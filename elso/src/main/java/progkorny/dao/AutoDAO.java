@@ -1,23 +1,22 @@
-package dao;
+package progkorny.dao;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import model.Auto;
-import model.Uzemanyag;
-import model.exceptions.AutoNotFound;
-import model.exceptions.DuplikaltAuto;
+import model.exceptions.RosszRendszam;
+import progkorny.model.Auto;
+import progkorny.model.exceptions.AutoNotFound;
+import progkorny.model.exceptions.DuplikaltAuto;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class AutoDAO {
+public class AutoDAO implements IAutoDAO {
 
     File file;
     ObjectMapper mapper;
@@ -27,6 +26,9 @@ public class AutoDAO {
         file = new File(filepath);
         if (!file.exists()) {
             file.createNewFile();
+            FileWriter writer = new FileWriter(filepath);
+            writer.write("[]");
+            writer.close();
         }
         mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
@@ -41,11 +43,15 @@ public class AutoDAO {
                 , new TypeReference<ArrayList<Auto>>() {
 
                 });
+        logger.info("Az adatbazisban levo adatok szama:"+result.size());
         return result;
     }
 
     public Auto readAutoByRenszam(String rendszam)
-            throws IOException, AutoNotFound {
+            throws IOException, AutoNotFound, RosszRendszam {
+        if(!Auto.checkRendszam(rendszam)){
+            throw new RosszRendszam(rendszam);
+        }
         Collection<Auto> autok = readAllAuto();
         for (Auto auto : autok) {
             if (auto.getRendszam().equalsIgnoreCase(rendszam)) {
@@ -63,7 +69,10 @@ public class AutoDAO {
                 Collection<Auto> autok = readAllAuto();
                 autok.add(auto);
                 mapper.writeValue(file, autok);
+                logger.info("Uj auto hozzaadva, az autok szama innentől: "+autok.size());
 
+        } catch (RosszRendszam rosszRendszam) {
+            rosszRendszam.printStackTrace();
         }
 
     }
