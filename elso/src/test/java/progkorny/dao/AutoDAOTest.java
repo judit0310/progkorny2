@@ -4,6 +4,7 @@ import model.exceptions.RosszRendszam;
 import org.junit.*;
 import progkorny.model.Auto;
 import progkorny.model.Uzemanyag;
+import progkorny.model.exceptions.AutoNotFound;
 import progkorny.model.exceptions.DuplikaltAuto;
 
 import java.io.File;
@@ -93,6 +94,19 @@ public class AutoDAOTest {
         for (Auto auto: autok){
             Assert.assertNotNull(auto.getRendszam());
         }
+    }
+
+    @Test(expected = IOException.class)
+    public void testIfPermissionDenied() throws IOException {
+        File fileobj = new File(filepath);
+        fileobj.delete();
+        System.out.println(dao.readAllAuto());
+    }
+
+    @Test(expected = RosszRendszam.class)
+    public void testRosszRendszamInReadAutoById() throws RosszRendszam, AutoNotFound, IOException {
+        String rossz_rendszam="ABB-AAA";
+        dao.readAutoByRenszam(rossz_rendszam);
     }
 
 }

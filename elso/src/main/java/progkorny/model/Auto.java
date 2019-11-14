@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Auto {
     private Logger logger = Logger.getLogger(Auto.class);
@@ -106,5 +107,24 @@ public class Auto {
 
     public static boolean checkRendszam(String rendszam){
         return rendszam.matches("[A-z]{3}-\\d{3}");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Auto auto = (Auto) o;
+        return Objects.equals(logger, auto.logger) &&
+                Objects.equals(marka, auto.marka) &&
+                Objects.equals(model, auto.model) &&
+                Objects.equals(rendszam, auto.rendszam) &&
+                Objects.equals(szin, auto.szin) &&
+                uzemanyag == auto.uzemanyag &&
+                Objects.equals(gyartasi_ido, auto.gyartasi_ido);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(logger, marka, model, rendszam, szin, uzemanyag, gyartasi_ido);
     }
 }
