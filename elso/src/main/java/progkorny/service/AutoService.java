@@ -3,6 +3,7 @@ package progkorny.service;
 import model.exceptions.RosszRendszam;
 import progkorny.dao.IAutoDAO;
 import progkorny.model.Auto;
+import progkorny.model.Uzemanyag;
 import progkorny.model.exceptions.AutoNotFound;
 import progkorny.model.exceptions.DuplikaltAuto;
 
@@ -35,13 +36,28 @@ public class AutoService {
     Collection<Auto> getAllAutoFromYear(int year) throws IOException {
         Collection<Auto> result = new ArrayList<>();
         Collection<Auto> autok = readAllAuto();
-        for (Auto a:autok
-             ) {
-            if (a.getGyartasi_ido().getYear()==year){
+        for (Auto a : autok
+        ) {
+            if (a.getGyartasi_ido().getYear() == year) {
                 result.add(a);
             }
 
         }
+        return result;
+
+    }
+
+    Collection<Auto> getAutoByFuel(Uzemanyag uzemanyag) throws IOException {
+        Collection<Auto> autok = dao.readAllAuto();
+        Collection<Auto> result = new ArrayList<>();
+        for (Auto a : autok
+        ) {
+            if(a.getUzemanyag() == uzemanyag){
+                result.add(a);
+            }
+
+        }
+
         return result;
 
     }
